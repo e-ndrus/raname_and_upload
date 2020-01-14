@@ -13,25 +13,21 @@ https://medium.com/@annissouames99/how-to-upload-files-automatically-to-drive-wi
 
 ```
 optional arguments:
-  -h, --help            show help message and exit
-
+  -h, --help            show this help message and exit
   -id INPUT_DIRECTORY, --input_directory INPUT_DIRECTORY
-
-                        Input folder with files you want to modify and upload
+                        Input folder where files you want to modify and upload
                         to cloud (default: None)
-
   -if INPUT_FILE, --input_file INPUT_FILE
                         Input file you want to modify and upload to cloud
                         (default: None)
-
   -d DESTINATION_FOLDER, --destination_folder DESTINATION_FOLDER
                         the destination folder (default: AutoUploaded)
-
   -ud, --update_date    Use this argument if you need to remove old modified
                         date prefix from your files before uploading (default:
                         False)
-                        
   -cr, --creation_date  Use this argument if you need to prepend a creation
                         date instead of modified date to your file (default:
                         False)
+  -uo, --upload_only    Use this argument if only need to upload files without
+                        renaming (default: False)
 ```
