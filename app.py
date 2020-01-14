@@ -65,6 +65,13 @@ class FileWorker:
             instead of modified date to your file""",
         )
 
+        self.parser.add_argument(
+            "-uo",
+            "--upload_only",
+            action="store_true",
+            help="Use this argument if only need to upload files without renaming",
+        )
+
     def main(self):
         args = self.parser.parse_args()
         parsed = self.check_args(args)
@@ -79,9 +86,13 @@ class FileWorker:
             self.destination_folder,
             self.update_date,
             self.creation_date,
+            self.upload_only,
         ) = parsed
-
-        files = self.rename()
+        files = []
+        if self.upload_only:
+            files = self.verify_files()
+        else:
+            files = self.rename()
         print(files)
         for file in files:
             if os.path.isfile(file["path"]):
@@ -104,6 +115,25 @@ class FileWorker:
             "filename": f"{date}--{file_name}.{extension}",
             "path": path + "/" + date + "--" + file_name + "." + extension,
         }
+
+    def get_filename_path_extension(self, origin):
+        head, tail = ntpath.split(origin)
+        return {"filename": tail, "path": head+'/'+tail}
+
+    def verify_files(self):
+        if self.origin_type == "file":
+            return [self.get_filename_path_extension(self.origin)]
+        else:
+            try:
+                files = []
+                for path in self.get_list_of_files(self.origin):
+                    full_path = os.path.join(self.origin, path)
+                    if os.path.isfile(full_path):
+                        f = self.get_filename_path_extension(full_path)
+                        files.append(f)
+                return files
+            except:
+                return []
 
     def rename(self):
         if self.origin_type == "file":
@@ -199,6 +229,7 @@ class FileWorker:
         destination_folder = args.destination_folder or self.DEFAULT_DESTINATION_FOLDER
         update_date = False or args.update_date
         creation_date = False or args.creation_date
+        upload_only = False or args.upload_only
         if os.path.isfile(origin):
             origin_type = "file"
         elif os.path.isdir(origin):
@@ -218,10 +249,16 @@ class FileWorker:
                 "destination_folder",
                 "update_date",
                 "creation_date",
+                "upload_only",
             ],
         )
         return return_params(
-            origin, origin_type, destination_folder, update_date, creation_date
+            origin,
+            origin_type,
+            destination_folder,
+            update_date,
+            creation_date,
+            upload_only,
         )
 
 
