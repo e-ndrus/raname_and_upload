@@ -1,0 +1,5 @@
+mycreds.txt
+client_secrets.json
+__pycache__
+.vscode
+playground.py
