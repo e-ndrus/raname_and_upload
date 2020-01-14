@@ -11,9 +11,8 @@ For uploading to work, you need to get a Google Drive API and save it to the app
 This article describes how to correctly set up Google Drive API: 
 https://medium.com/@annissouames99/how-to-upload-files-automatically-to-drive-with-python-ee19bb13dda
 
-
+```
 optional arguments:
-
   -h, --help            show help message and exit
 
   -id INPUT_DIRECTORY, --input_directory INPUT_DIRECTORY
@@ -35,3 +34,4 @@ optional arguments:
   -cr, --creation_date  Use this argument if you need to prepend a creation
                         date instead of modified date to your file (default:
                         False)
+```
